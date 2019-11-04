@@ -1,0 +1,1 @@
+This folder is too put small parts of html to reuse
