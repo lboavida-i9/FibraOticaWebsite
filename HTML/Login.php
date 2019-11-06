@@ -35,10 +35,14 @@ include_once "../PHP/LoginHelper.php";
                     <input type="password" id="PasswordTxt" class="form-control" placeholder="Enter your password">
                 </div>
 
-                <button onclick="Login()" class="btn btn-primary w-100-small">Submit</button>                
+                <button onclick="Login()" class="btn btn-primary w-100-small">Submit</button>
             </div>
         </div>
     </div>
 </body>
+
+<?php
+include_once "Content/_scripts.html";
+?>
 
 </html>

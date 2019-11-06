@@ -18,19 +18,16 @@ include_once "../PHP/BackOfficeHelper.php";
 ?>
 
 <body>
-
     <?php
     include_once "Content/Navbar.html";
     ?>
-
-    <h1>Documentos</h1>
-    <div id="DivDocumentsGetted" onload="GetDocuments();"></div>
-    <button onclick="AddItem();">Add</button>
-
+    
+    <input type="file" id="files" name="files"/>
 </body>
 
 <?php
 include_once "Content/_scripts.html";
 ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>
 
 </html>
