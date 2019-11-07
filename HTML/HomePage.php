@@ -17,12 +17,31 @@
 include_once "../PHP/HomePageHelper.php";
 ?>
 
-<body onload="GetWorkingExample();">
+<body onload="OnLoad()">
     <?php
     include_once "Content/Navbar.html";
     ?>
-    <div id="Receiver"></div>
-    <h1>TESTE</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="Slidshow col-8">
+                <img class="mySlides" src="https://www.w3schools.com/w3css/img_ny.jpg" style="width:100%">
+                <img class="mySlides" src="https://www.w3schools.com/w3css/img_la.jpg" style="width:100%">
+                <img class="mySlides" src="https://www.w3schools.com/w3css/img_chicago.jpg" style="width:100%">
+                <div class="overlay"></div>
+            </div>
+           <div class="col-4 Slidshow_imagens_cortadas">
+                <div class="Div_imagens_cortadas">
+                    <img src="https://www.w3schools.com/w3css/img_chicago.jpg" style="width:100%">
+                </div>
+                <div class="Div_imagens_cortadas">
+                    <img src="https://www.w3schools.com/w3css/img_chicago.jpg" style="width:100%">
+                </div>
+                <div class="Div_imagens_cortadas_3">
+                    <img src="https://www.w3schools.com/w3css/img_chicago.jpg" style="width:100%">
+                </div>
+           </div>
+        </div>
+    </div>
 </body>
 
 <?php
