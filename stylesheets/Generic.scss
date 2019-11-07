@@ -1,4 +1,3 @@
-
 @import 'Variables';
 
 h1,h2,h3,h4,h5,h6{
@@ -9,3 +8,60 @@ p{
     font-family: $Secondary_FontStyle;
 }
 
+.bg-dark-blue
+{
+    background-color: $dark-blue !important;
+}
+
+.bg-blue
+{
+    background-color: $blue !important;
+}
+
+.bg-light-blue
+{
+    background-color: $light-blue !important;
+}
+
+.bg-grey
+{
+    background-color: $grey !important;
+}
+
+.bg-black
+{
+    background-color: $black !important;
+}
+
+
+
+
+.color-dark-blue
+{
+    color: $dark-blue !important;
+}
+
+.color-blue
+{
+    color: $blue !important;
+}
+
+.color-light-blue
+{
+    color: $light-blue !important;
+}
+
+.color-grey
+{
+    color: $grey !important;
+}
+
+.color-black
+{
+    color: $black !important;
+}
+
+.color-white
+{
+    color: white !important;
+}

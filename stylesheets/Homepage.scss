@@ -1,1 +1,51 @@
 @import 'Generic';
+/*inicio slidshow*/
+.Slidshow
+{
+    padding: 0;
+    height: 670px;
+}
+
+.Slidshow img
+{
+    object-fit: cover;
+    height: 100%;
+}
+
+.overlay
+{
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+    width: 67px;
+    height: 100%;
+    background: white;
+    transform: skew(183.25deg);
+    left: 96%;
+}
+
+.Slidshow_imagens_cortadas
+{
+    padding: 0;
+    height: 670px;
+}
+
+
+.Div_imagens_cortadas
+{
+    height: 33.3333333333333333%;
+    padding-bottom: 10px;
+}
+
+.Div_imagens_cortadas_3
+{
+    height: 33.3333333333333333%;
+}
+
+.Slidshow_imagens_cortadas img
+{
+    object-fit: cover;
+    height: 100%;
+}
+/*fim slidshow*/
+
