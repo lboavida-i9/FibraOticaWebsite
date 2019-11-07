@@ -8,20 +8,17 @@
     <?php
     include_once "Content/_header.html";
     ?>
-    <title>BackOffice</title>
-    <link rel="stylesheet" href="../PHP/Style.php/BackOffice.scss">
-    <script src="../JS/BackOffice.js"></script>
+    <title>ExcellReader</title>
+    <script src="../JS/ExcellReader.js"></script>
 </head>
 
-<?php
-include_once "../PHP/BackOfficeHelper.php";
-?>
-
-<body>
+<body onload="OnLoad();">
     <?php
     include_once "Content/Navbar.html";
     ?>
-    
+
+    <a href='../Files/FibraOticaExcell.xlsx' target="_blank">Download</a>
+
     <input type="file" id="files" name="files"/>
 </body>
 

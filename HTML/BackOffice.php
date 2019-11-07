@@ -25,8 +25,11 @@ include_once "../PHP/BackOfficeHelper.php";
 
     <h1>Documentos</h1>
     <div id="DivDocumentsGetted" onload="GetDocuments();"></div>
-    <button onclick="AddItem();">Add</button>
 
+    <form action="../Handlers/BackOfficeHandlers.php?action=AddContent" method="post" enctype="multipart/form-data">        
+        <input type="file" name="InputFile" id="InputFile" multiple>
+        <input type="submit" value="Upload Image" name="submit">
+    </form>
 </body>
 
 <?php

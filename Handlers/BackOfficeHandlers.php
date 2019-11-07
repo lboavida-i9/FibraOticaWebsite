@@ -9,12 +9,20 @@ if (isset($_REQUEST['action'])) {
             $rs = $query->fetchAll(PDO::FETCH_OBJ);
             $result = 'Email ou Password errados';
 
-            foreach ($rs as $r) {                
+            foreach ($rs as $r) {
                 $_SESSION["id"] = $r->id;
                 $result  = 'success';
             }
 
             echo $result;
+            break;
+        case "AddContent":
+            $info = pathinfo($_FILES['InputFile']['name']);
+            $ext = $info['extension']; // get the extension of the file
+            $newname = "newname." . $ext;
+
+            $target = '../Files/' . $newname;
+            move_uploaded_file($_FILES['InputFile']['tmp_name'], $target);
             break;
     }
 }
