@@ -8,28 +8,24 @@
     <?php
     include_once "Content/_header.html";
     ?>
-    <link rel="stylesheet" href="../PHP/Style.php/Login.scss">
-    <script src="../JS/Login.js"></script>
-    <title>Homepage</title>
+    <link rel="stylesheet" href="../PHP/Style.php/LoginGeral.scss">
+    <script src="../JS/LoginGeral.js"></script>
+    <title>Login Geral</title>
 </head>
 
 <?php
-include_once "../PHP/LoginHelper.php";
+include_once "../PHP/LoginGeralHelper.php";
 ?>
 
 <body>
     <?php
     include_once "Content/Navbar.html";
+    include_once "Content/Loader.html";
     ?>
 
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3 col-12 mt-5">
-                <div class="form-group">
-                    <label for="EmailTxt">Email address</label>
-                    <input type="email" id="EmailTxt" class="form-control" placeholder="Enter email">
-                </div>
-
                 <div class="form-group">
                     <label for="PasswordTxt">Password</label>
                     <input type="password" id="PasswordTxt" class="form-control" placeholder="Enter your password">
