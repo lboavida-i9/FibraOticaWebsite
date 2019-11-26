@@ -1,0 +1,24 @@
+@import 'Generic';
+.page-footer
+{
+    background: $dark-blue;
+    margin-top: 40px;
+}
+
+.page-footer a
+{
+    color: white;
+}
+
+.page-footer p
+{
+    color: white;
+}
+
+.page-footer .mb-5.flex-cener
+{
+    margin: auto;
+    display: table;
+    margin-bottom: 0 !important;
+    margin-top: 10px;
+}
