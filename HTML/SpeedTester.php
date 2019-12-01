@@ -9,7 +9,6 @@
     include_once "Content/_header.html";
     ?>
     <title>SpeedTester</title>
-    <script src="../JS/ExcellReader.js"></script>
 </head>
 
 <body>

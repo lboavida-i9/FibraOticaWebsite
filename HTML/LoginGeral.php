@@ -17,22 +17,26 @@
 include_once "../PHP/LoginGeralHelper.php";
 ?>
 
-<body>
+<body onload="LoadJs();">
     <?php
     include_once "Content/Navbar.html";
     include_once "Content/Loader.html";
     ?>
 
     <div class="container">
+        <div id="InfoAlertDiv" class="alert alert-info alert-dismissible fade hide mt-5">
+            <button type="button" class="close" onclick="$('#InfoAlertDiv').removeClass('show');$('#InfoAlertDiv').addClass('hide');">&times;</button>
+            <p id="InfoAlert" class="m-0"></p>
+        </div>
         <div class="row">
-            <div class="col-md-6 offset-md-3 col-12 mt-5">
+            <form class="col-md-6 offset-md-3 col-12 mt-5">
                 <div class="form-group">
                     <label for="PasswordTxt">Password</label>
-                    <input type="password" id="PasswordTxt" class="form-control" placeholder="Enter your password">
+                    <input type="password" id="PasswordTxt" class="form-control" placeholder="Enter your password" required>
                 </div>
 
-                <button onclick="Login()" class="btn btn-primary w-100-small">Submit</button>
-            </div>
+                <button  class="btn btn-primary w-100-small" type="submit">Submit</button>
+            </form>
         </div>
     </div>
 </body>

@@ -24,6 +24,10 @@ include_once "../PHP/LoginTecnicoHelper.php";
     ?>
 
     <div class="container">
+        <div id="InfoAlertDiv" class="alert alert-info alert-dismissible fade hide mt-5">
+            <button type="button" class="close" onclick="$('#InfoAlertDiv').removeClass('show');$('#InfoAlertDiv').addClass('hide');">&times;</button>
+            <p id="InfoAlert" class="m-0"></p>
+        </div>
         <div class="row">
             <div class="col-md-6 offset-md-3 col-12 mt-5">
                 <div class="form-group">

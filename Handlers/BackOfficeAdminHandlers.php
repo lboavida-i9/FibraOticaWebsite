@@ -21,12 +21,12 @@ if (isset($_REQUEST['action'])) {
             session_start();
             $query = $db->prepare("INSERT INTO userstecnico(email, password, Nome) VALUES ('" . htmlspecialchars($_POST["EmailTecnico"]) . "','" . hash("sha512", htmlspecialchars($_POST["PasswordTecnico"])) . "', '" . htmlspecialchars($_POST["NomeTecnico"]) . "');");
             $query->execute();
-            echo 'success';
+            echo 'Conta criada com successo';
             break;
         case "ChangeGeralPassword":
             $query = $db->prepare("UPDATE usersgeral SET password = '" . hash("sha512", htmlspecialchars($_POST["PasswordGeral"])) . "' WHERE 1");
             $query->execute();
-            echo "Success";
+            echo "Password Geral alterada com successo";
             break;
         case "GetTecnicos":
             $query = $db->prepare("SELECT id, Nome, email FROM userstecnico");
@@ -37,15 +37,40 @@ if (isset($_REQUEST['action'])) {
         case "DeleteTecnico":
             $query = $db->prepare("DELETE FROM userstecnico WHERE id = " . $_POST["IdTecnico"]);
             $query->execute();
-            echo "Deleted with Success";
+            echo "Técnico apagado com successo";
+            break;
+        case "EditTecnico":
+            $query = $db->prepare("UPDATE userstecnico SET email= '" . $_POST["EmailTecnico"] . "', Nome='" . $_POST["NomeTecnico"] . "' WHERE id='" . $_POST["IdTecnico"] . "'");
+            $query->execute();
+            echo "Técnico editado com successo";
+            break;
+        case "ReadExcell":
+            $Result = $_POST["result"];
+
+            $QueryString = "INSERT INTO conteudoexcell ( Nome, Problema, Idade ) VALUES";
+
+            $contador = 0;
+            foreach ($Result as $r) {
+                if ($contador > 0) {
+                    $QueryString = $QueryString . ',';
+                }
+
+                $QueryString = $QueryString . "('" . $r["Nome"] . "', '" . $r["Problema"] . "', " . $r["Idade"] . ")";
+                $contador++;
+            }
+
+            $QueryString = $QueryString . ";";
+            $query = $db->prepare($QueryString);
+            $query->execute();
+            
+            echo 'Conteúdo do excell adicionado com successo';
             break;
     }
 }
 
-function InsertContent()
-{
+function InsertContent() {
     include("../PHP/DBConfig.php");
-    $query = $db->prepare("INSERT INTO conteudobackoffice (nome, descricao) VALUES ('" . htmlspecialchars($_REQUEST["Titulo"]) . "','" . htmlspecialchars($_REQUEST["Descricao"]) . "');");
+    $query = $db->prepare("INSERT INTO conteudobackoffice (nome, descricao) VALUES ('" . htmlspecialchars($_POST["Titulo"]) . "','" . htmlspecialchars($_POST["Descricao"]) . "');");
     $query->execute();
 
     $query = $db->prepare("SELECT LAST_INSERT_ID() AS id;");
@@ -56,15 +81,13 @@ function InsertContent()
     }
 }
 
-function InsertFileContent($contentId, $fileName)
-{
+function InsertFileContent($contentId, $fileName) {
     include("../PHP/DBConfig.php");
     $query = $db->prepare("INSERT INTO ficheirosconteudobackoffice(idconteudo, nomedoficheiro) VALUES ('" . $contentId . "','" . $fileName . "')");
     $query->execute();
 }
 
-function GetNumberName()
-{
+function GetNumberName() {
     include("../PHP/DBConfig.php");
 
     $query = $db->prepare("SELECT * FROM ficheirosconteudobackoffice ORDER BY id DESC LIMIT 0, 1");

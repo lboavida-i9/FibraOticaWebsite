@@ -7,7 +7,7 @@ if (isset($_REQUEST['action'])) {
             $query = $db->prepare("select id FROM usersgeral WHERE password='" . hash("sha512", htmlspecialchars($_REQUEST["Password"])) . "'");
             $query->execute();
             $rs = $query->fetchAll(PDO::FETCH_OBJ);
-            $result = 'Email ou Password errados';
+            $result = 'Password errada';
 
             foreach ($rs as $r) {                
                 $_SESSION["idGeral"] = $r->id;

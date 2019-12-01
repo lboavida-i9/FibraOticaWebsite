@@ -1,7 +1,9 @@
 function CreateAccount() {
     $("#Loader").show();
     $.post('../Handlers/BackOfficeAdminHandlers.php?action=CreateAccount', { 'EmailTecnico': $("#EmailTecnico").val(), 'PasswordTecnico': $("#PasswordTecnico").val(), 'NomeTecnico': $("#NomeTecnico").val() }, function (response) {
-        alert(response);
+
+        $("#InfoAlert").html(response);
+        $("#InfoAlertDiv").modal('show');
 
         $("#EmailTecnico").val("");
         $("#PasswordTecnico").val("");
@@ -16,7 +18,10 @@ function CreateAccount() {
 function ChangeGeralPassword() {
     $("#Loader").show();
     $.post('../Handlers/BackOfficeAdminHandlers.php?action=ChangeGeralPassword', { 'PasswordGeral': $("#PasswordGeral").val() }, function (response) {
-        alert(response);
+
+        $("#InfoAlert").html(response);
+        $("#InfoAlertDiv").modal('show');        
+
         $("#Loader").hide();
     });
 }
@@ -39,7 +44,7 @@ function GetTecnicos() {
                 "<tr>" +
                 "<td id='NomeTecnico_" + element.id + "'> " + element.Nome + " </td>" +
                 "<td id='EmailTecnico_" + element.id + "'> " + element.email + " </td>" +
-                "<td id='ButtonsTecnico_" + element.id + "'> <button onclick='EditTecnico(" + element.id + ");'>Edit</button> <button onclick='DeleteTecnico(" + element.id + ");'>Del</button> </td>" +
+                "<td id='ButtonsTecnico_" + element.id + "'> <button data-toggle='modal' data-target='#EditTecnico' onclick='GetCurrentTecnico(" + element.id + ", \"" + element.Nome + "\", \"" + element.email + "\");'>Edit</button> <button onclick='DeleteTecnico(" + element.id + ");'>Del</button> </td>" +
                 "</tr>"
             );
             $("#Loader").hide();
@@ -92,18 +97,81 @@ function LoadTecnicoTable() {
     });
 }
 
-function EditTecnico(id) {
+var CurrentEditingTecnico = -1;
+function GetCurrentTecnico(id, Nome, Email) {
+    CurrentEditingTecnico = id;
+    $("#NomeTecnico").html("Edite o Técnico " + Nome + ":");
+    $("#EditNomeTecnico").val(Nome);
+    $("#EditEmailTecnico").val(Email);
+}
 
+function EditTecnico() {
+    $("#Loader").show();
+    $.post('../Handlers/BackOfficeAdminHandlers.php?action=EditTecnico', { 'IdTecnico': CurrentEditingTecnico, 'NomeTecnico': $("#EditNomeTecnico").val(), 'EmailTecnico': $("#EditEmailTecnico").val() }, function (response) {
+
+        $("#InfoAlert").html(response);
+        $("#InfoAlertDiv").modal('show');
+
+        $("#Loader").hide();
+
+        $("#tbodyTecnicos").empty();
+        GetTecnicos();
+    });
 }
 
 function DeleteTecnico(id) {
     $("#Loader").show();
     $.post('../Handlers/BackOfficeAdminHandlers.php?action=DeleteTecnico', { 'IdTecnico': id }, function (response) {
-        alert(response);
+
+        $("#InfoAlert").html(response);
+        $("#InfoAlertDiv").modal('show');
 
         $("#Loader").hide();
 
         $("#tbodyTecnicos").empty();
-        GetTecnicos();        
+        GetTecnicos();
     });
+}
+
+// Excell Reader
+function OnLoad() {
+    $(document).ready(function () {
+        $('#files').change(handleFile);
+    });
+}
+
+function handleFile(e) {
+    //Get the files from Upload control
+    var files = e.target.files;
+    var i, f;
+    //Loop through files
+    for (i = 0, f = files[i]; i != files.length; ++i) {
+        var reader = new FileReader();
+        var name = f.name;
+        reader.onload = function (e) {
+            var data = e.target.result;
+
+            var result;
+            var workbook = XLSX.read(data, { type: 'binary' });
+
+            var sheet_name_list = workbook.SheetNames;
+            sheet_name_list.forEach(function (y) { /* iterate through sheets */
+                //Convert the cell value to Json
+                var roa = XLSX.utils.sheet_to_json(workbook.Sheets[y]);
+                if (roa.length > 0) {
+                    result = roa;
+                }
+            });
+            //Get the first column first cell value
+            $("#Loader").show();
+            $.post('../Handlers/BackOfficeAdminHandlers.php?action=ReadExcell', { 'result': result }, function (response) {
+
+                $("#InfoAlert").html(response);
+                $("#InfoAlertDiv").modal('show');
+
+                $("#Loader").hide();
+            });
+        };
+        reader.readAsArrayBuffer(f);
+    }
 }
