@@ -3,28 +3,36 @@ include("../PHP/DBConfig.php");
 if (isset($_REQUEST['action'])) {
     switch ($_REQUEST['action']) {
         case "GetContent":
-            $query = $db->prepare("SELECT * FROM conteudobackoffice");
+            $query = $db->prepare("SELECT conteudobackoffice.id, conteudobackoffice.nome, conteudobackoffice.descricao, ficheirosconteudobackoffice.nomedoficheiro
+                                   FROM conteudobackoffice, ficheirosconteudobackoffice 
+                                   WHERE conteudobackoffice.id = idconteudo
+                                   ORDER BY id DESC");
+
             $query->execute();
             $rs = $query->fetchAll(PDO::FETCH_OBJ);
-            $ArrayContent=array();
+            $ArrayContent = array();
 
-            foreach ($rs as $r) { 
-                $arrayForeach = array();
-                array_push($arrayForeach, array('id' => $r->id, 'nome' => $r->nome, 'descricao' => $r->descricao, 'Conteudo' => GetFilesContent($r->id)));
+            $idGetted = -1;
+            foreach ($rs as $r) {
 
-                array_push($ArrayContent, $arrayForeach);
+                if ($idGetted != $r->id) {
+                    $idGetted = $r->id;
+                    array_push($ArrayContent, array('id' => $r->id, 'nome' => $r->nome, 'descricao' => $r->descricao, 'Conteudo' => GetFilesContent($rs, $r->id)));
+                }
+
             }
             echo json_encode($ArrayContent);
             break;
     }
 }
 
-function GetFilesContent($contentId)
-{
-    include("../PHP/DBConfig.php");
-    $query = $db->prepare("SELECT * FROM ficheirosconteudobackoffice WHERE idconteudo='" . $contentId . "'");
-    $query->execute();
-    $rs = $query->fetchAll(PDO::FETCH_OBJ);
-    return $rs;
-    break;
+function GetFilesContent($rs, $contentId) {
+    $ArrayContentRow = array();
+    foreach ($rs as $r) {
+        if($contentId == $r->id) {
+            array_push($ArrayContentRow, $r->nomedoficheiro);
+        }
+    }
+    return $ArrayContentRow;
 }
+

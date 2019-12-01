@@ -5,8 +5,17 @@ function Login() {
     '&Password=' + $("#PasswordTxt").val(), function (response) {
         $("#Loader").hide();
         if (response == 'success')
+        {
             window.location = '../HTML/BackOfficeTecnico.php';
+            $("#InfoAlert").html("<strong>Info: </strong> Logado com successo!");
+            $("#InfoAlertDiv").addClass("show");
+            $("#InfoAlertDiv").addClass("hide");
+        }
         else
-            alert(response);
+        {
+            $("#InfoAlert").html("<strong>Info: </strong>" + response);
+            $("#InfoAlertDiv").addClass("show");
+            $("#InfoAlertDiv").addClass("hide");
+        }
     });
 }

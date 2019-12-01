@@ -39,7 +39,7 @@ include_once "../PHP/HomePageHelper.php";
                 <div class="Div_imagens_cortadas_3">
                     <img src="https://cdn.pixabay.com/photo/2016/07/14/02/01/fibre-1515964__340.jpg" style="width:100%">
                 </div>
-           </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-6 div_Video_e_texto">
@@ -58,18 +58,17 @@ include_once "../PHP/HomePageHelper.php";
                     pharetra. Enim praesent elementum facilisis leo. Cum sociis natoque penatibus
                     et magnis dis parturient. Pellentesque pulvinar pellentesque habitant morbi
                     tristique senectus et. Quam adipiscing vitae
-                </p>
+                    </p>
             </div>
         </div>
     </div>
 
-   
-        
-    
-</body>
-<?php
+    <?php
     include_once "Content/_Footer.html";
-?>
+    ?>
+
+
+</body>
 <?php
 include_once "Content/_scripts.html";
 ?>
