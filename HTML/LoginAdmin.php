@@ -23,7 +23,7 @@ include_once "../PHP/LoginAdminHelper.php";
     include_once "Content/Loader.html";
     ?>
 
-    <div class="container">
+    <div class="container height-control">
         <div class="row">
             <div class="col-md-6 offset-md-3 col-12 mt-5">
                 <div class="form-group">
@@ -41,7 +41,9 @@ include_once "../PHP/LoginAdminHelper.php";
         </div>
     </div>
 </body>
-
+<?php
+    include_once "Content/_Footer.html";
+?>
 <?php
 include_once "Content/_scripts.html";
 ?>

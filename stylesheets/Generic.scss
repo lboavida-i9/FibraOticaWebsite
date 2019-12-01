@@ -65,3 +65,15 @@ p{
 {
     color: white !important;
 }
+
+.height-control {
+    min-height: calc(100vh - 426px);
+
+    @media only screen and (max-width: 992px) { 
+       min-height: calc(100vh - 453px);
+    }
+
+    @media only screen and (max-width: 767px) { 
+        min-height: calc(100vh - 426px);
+    }
+}
