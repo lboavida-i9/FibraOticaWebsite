@@ -73,4 +73,31 @@
 }
 /*fim div de video*/
 
+@media (max-width: 767px) {
+    /*inicio slidshow*/
+    .overlay
+    {
+        display:none;
+    }
+
+    .Slidshow_imagens_cortadas
+    {
+        padding: 20px;
+    }
+    /*Fim slidshow*/
+
+    /*inicio div de video*/
+    body .div_Video_e_texto
+    {
+        margin-top: 0px;
+    }
+    /*Fim div de video*/
+    
+    /*inicio div de Footer*/
+    body .page-footer
+    {
+        margin-top: 0px;
+    }
+    /*Fim div de Footer*/
+}
 
