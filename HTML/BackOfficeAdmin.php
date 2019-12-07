@@ -37,7 +37,8 @@ include_once "../PHP/BackOfficeAdminHelper.php";
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <h5 id="InfoAlert" class="m-0"></p>
+                        <h5 id="InfoAlert" class="m-0">
+                            </p>
                     </div>
 
                     <!-- Modal footer -->
@@ -49,51 +50,138 @@ include_once "../PHP/BackOfficeAdminHelper.php";
             </div>
         </div>
         <div class="row">
-            <h1>BackOffice Admin</h1>
-            <br>
-
-            <div class="col-12 mb-4">
-                <form action="../Handlers/BackOfficeAdminHandlers.php?action=AddContent" method="post" enctype="multipart/form-data">
-                    <h3>Adicionar Conteúdo</h3>
-
-                    <p>Titulo</p>
-                    <input type="text" name="Titulo" id="Titulo" placeholder="Titulo" required>
-                    <br>
-
-                    <p>Descricao</p>
-                    <input type="text" name="Descricao" id="Descricao" placeholder="Descricao" required>
-                    <br><br>
-
-                    <input type="file" name="InputFile[]" id="InputFile" multiple="multiple" required>
-                    <br><br>
-
-                    <input type="submit" value="Enviar" name="submit" onclick="AddContent();">
-                </form>
+            <div class="col-12">
+                <h1 class="text-center mt-4 mb-4">BackOffice Admin</h1>
             </div>
 
-            <form id="CreateAccountForm" class="col-12 mb-4">
-                <h3> Adicionar conta de um Técnico </h3>
+            <div class="col-12 col-md-6 mb-4">
+                <div class="color">
+                    <form action="../Handlers/BackOfficeAdminHandlers.php?action=AddContent" method="post" enctype="multipart/form-data">
+                        <h3>Adicionar Conteúdo</h3>
+                        <div class="row">
+                            <div class="col">
+                                <p>Titulo</p>
+                            </div>
+                            <div class="col"> <input type="text" name="Titulo" id="Titulo" placeholder="Titulo" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Descricao</p>
+                            </div>
+                            <div class="col"><input type="text" name="Descricao" id="Descricao" placeholder="Descricao" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
 
-                <p> Nome </p>
-                <input type="text" id="NomeTecnico" placeholder="Nome" required>
-                <br>
+                                <input type="file" name="InputFile[]" id="InputFile" class="inputfile" multiple="multiple" required>
+                                <label for="InputFile">Choose a file</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <input type="submit" value="Enviar" name="submit" onclick="AddContent();">
+                            </div>
+                        </div>
 
-                <p> Email </p>
-                <input type="email" id="EmailTecnico" placeholder="Email" required>
-                <br>
 
-                <p> Password </p>
-                <input type="password" id="PasswordTecnico" placeholder="Password" required>
-                <br>
 
-                <button type="submit">Criar Conta</button>
-            </form>
+                    </form>
+                </div>
+
+            </div>
+
+
+            <div class="col-12 col-md-6 mb-4">
+                <div class="color">
+                    <form id="CreateAccountForm">
+                        <h3> Adicionar conta de um Técnico </h3>
+
+                        <div class="row">
+                            <div class="col">
+                                <p> Nome </p>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="NomeTecnico" placeholder="Nome" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p> Email </p>
+                            </div>
+                            <div class="col">
+                                <input type="email" id="EmailTecnico" placeholder="Email" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <p> Password </p>
+                            </div>
+                            <div class="col">
+                                <input type="password" id="PasswordTecnico" placeholder="Password" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit">Criar Conta</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+
+            </div>
+
+
+            <div class="col-12 col-lg-6 mb-4">
+                <div class="color">
+                    <form id="ChangeGeralPasswordForm">
+                        <h3> Alterar passe Geral </h3>
+
+                        <div class="row">
+                            <div class="col">
+                                <p>Nova Password</p>
+                            </div>
+                            <div class="col">
+                                <input type="password" id="PasswordGeral" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit">Alterar Password</button>
+                            </div>
+                        </div>
+
+
+
+                    </form>
+                </div>
+
+            </div>
+
+
+            <div class="col-12 col-lg-6 mb-4">
+                <div class="color">
+                    <h3> Adicionar Conteúdo Excell </h3>
+
+                    <a href='../Files/FibraOticaExcell.xlsx' target="_blank">Download</a>
+
+                    <input type="file" id="files" class="inputfile" name="files" accept=".xlsx, .xls, .csv" />
+                    <label for="files">Choose a file</label>
+                </div>
+
+            </div>
 
             <div class="col-12 mb-4">
                 <h3> Editar Apagar Técnicos </h3>
 
-                <div class="container">
-                    <div class="row">
+                <div class="row">
+                    <div class="col-12">
                         <div class="panel panel-primary filterable">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Técnicos</h3>
@@ -114,7 +202,9 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                             </table>
                         </div>
                     </div>
+
                 </div>
+
 
                 <!-- The Modal -->
                 <div class="modal fade" id="EditTecnico">
@@ -145,22 +235,6 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <form id="ChangeGeralPasswordForm" class="col-12 mb-4">
-                <h3> Alterar passe Geral </h3>
-
-                <p>Nova Password</p>
-                <input type="password" id="PasswordGeral" required>
-
-                <button type="submit">Alterar Password</button>
-            </form>
-
-            <div class="col-12 mb-4">
-                <h3> Adicionar Conteúdo Excell </h3>
-
-                <a href='../Files/FibraOticaExcell.xlsx' target="_blank">Download</a>
-                <input type="file" id="files" name="files" accept=".xlsx, .xls, .csv" />
             </div>
         </div>
     </div>
