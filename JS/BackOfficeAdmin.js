@@ -1,28 +1,36 @@
 function CreateAccount() {
-    $("#Loader").show();
-    $.post('../Handlers/BackOfficeAdminHandlers.php?action=CreateAccount', { 'EmailTecnico': $("#EmailTecnico").val(), 'PasswordTecnico': $("#PasswordTecnico").val(), 'NomeTecnico': $("#NomeTecnico").val() }, function (response) {
+    $('#CreateAccountForm').on('submit', function (e) {
+        e.preventDefault();
 
-        $("#InfoAlert").html(response);
-        $("#InfoAlertDiv").modal('show');
+        $("#Loader").show();
+        $.post('../Handlers/BackOfficeAdminHandlers.php?action=CreateAccount', { 'EmailTecnico': $("#EmailTecnico").val(), 'PasswordTecnico': $("#PasswordTecnico").val(), 'NomeTecnico': $("#NomeTecnico").val() }, function (response) {
 
-        $("#EmailTecnico").val("");
-        $("#PasswordTecnico").val("");
+            $("#InfoAlert").html(response);
+            $("#InfoAlertDiv").modal('show');
 
-        $("#Loader").hide();
+            $("#EmailTecnico").val("");
+            $("#PasswordTecnico").val("");
 
-        $("#tbodyTecnicos").empty();
-        GetTecnicos();
+            $("#Loader").hide();
+
+            $("#tbodyTecnicos").empty();
+            GetTecnicos();
+        });
     });
 }
 
 function ChangeGeralPassword() {
-    $("#Loader").show();
-    $.post('../Handlers/BackOfficeAdminHandlers.php?action=ChangeGeralPassword', { 'PasswordGeral': $("#PasswordGeral").val() }, function (response) {
+    $('#ChangeGeralPasswordForm').on('submit', function (e) {
+        e.preventDefault();
 
-        $("#InfoAlert").html(response);
-        $("#InfoAlertDiv").modal('show');        
+        $("#Loader").show();
+        $.post('../Handlers/BackOfficeAdminHandlers.php?action=ChangeGeralPassword', { 'PasswordGeral': $("#PasswordGeral").val() }, function (response) {
 
-        $("#Loader").hide();
+            $("#InfoAlert").html(response);
+            $("#InfoAlertDiv").modal('show');
+
+            $("#Loader").hide();
+        });
     });
 }
 

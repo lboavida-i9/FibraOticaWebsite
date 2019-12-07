@@ -17,7 +17,7 @@
 include_once "../PHP/BackOfficeAdminHelper.php";
 ?>
 
-<body onload="LoadTecnicoTable(); GetTecnicos(); OnLoad();">
+<body onload="LoadTecnicoTable(); GetTecnicos(); OnLoad(); CreateAccount(); ChangeGeralPassword();">
     <?php
     include_once "Content/Navbar.html";
     include_once "Content/Loader.html";
@@ -71,23 +71,23 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                 </form>
             </div>
 
-            <div class="col-12 mb-4">
+            <form id="CreateAccountForm" class="col-12 mb-4">
                 <h3> Adicionar conta de um Técnico </h3>
 
                 <p> Nome </p>
-                <input type="text" id="NomeTecnico" placeholder="Nome">
+                <input type="text" id="NomeTecnico" placeholder="Nome" required>
                 <br>
 
                 <p> Email </p>
-                <input type="email" id="EmailTecnico" placeholder="Email">
+                <input type="email" id="EmailTecnico" placeholder="Email" required>
                 <br>
 
                 <p> Password </p>
-                <input type="password" id="PasswordTecnico" placeholder="Password">
+                <input type="password" id="PasswordTecnico" placeholder="Password" required>
                 <br>
 
-                <button onclick="CreateAccount();">Criar Conta</button>
-            </div>
+                <button type="submit">Criar Conta</button>
+            </form>
 
             <div class="col-12 mb-4">
                 <h3> Editar Apagar Técnicos </h3>
@@ -147,14 +147,14 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                 </div>
             </div>
 
-            <div class="col-12 mb-4">
+            <form id="ChangeGeralPasswordForm" class="col-12 mb-4">
                 <h3> Alterar passe Geral </h3>
 
                 <p>Nova Password</p>
-                <input type="password" id="PasswordGeral">
+                <input type="password" id="PasswordGeral" required>
 
-                <button onclick="ChangeGeralPassword();">Alterar Password</button>
-            </div>
+                <button type="submit">Alterar Password</button>
+            </form>
 
             <div class="col-12 mb-4">
                 <h3> Adicionar Conteúdo Excell </h3>
