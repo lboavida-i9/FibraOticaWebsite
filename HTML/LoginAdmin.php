@@ -24,12 +24,12 @@ include_once "../PHP/LoginAdminHelper.php";
     ?>
 
     <div class="container height-control">
-        <div id="InfoAlertDiv" class="alert alert-info alert-dismissible fade hide mt-5">
-            <button type="button" class="close" onclick="$('#InfoAlertDiv').removeClass('show');$('#InfoAlertDiv').addClass('hide');">&times;</button>
-            <p id="InfoAlert" class="m-0"></p>
-        </div>
         <div class="row">
-            <form action="#" class="col-md-6 offset-md-3 col-12 mt-3">
+            <div id="InfoAlertDiv" class="alert alert-info alert-dismissible fade hide mt-5 col-12">
+                <button type="button" class="close" onclick="$('#InfoAlertDiv').removeClass('show');$('#InfoAlertDiv').addClass('hide');">&times;</button>
+                <p id="InfoAlert" class="m-0"></p>
+            </div>
+            <form class="col-md-6 offset-md-3 col-12 mt-3">
                 <div class="form-group">
                     <label for="EmailTxt">Email address</label>
                     <input type="email" id="EmailTxt" class="form-control" placeholder="Enter email" required>
@@ -40,13 +40,13 @@ include_once "../PHP/LoginAdminHelper.php";
                     <input type="password" id="PasswordTxt" class="form-control" placeholder="Enter your password" required>
                 </div>
 
-                <button onclick="Login()" class="btn btn-primary w-100-small" type="submit">Submit</button>
+                <button class="btn btn-primary w-100-small" type="submit">Submit</button>
             </form>
         </div>
     </div>
 </body>
 <?php
-    include_once "Content/_Footer.html";
+include_once "Content/_Footer.html";
 ?>
 <?php
 include_once "Content/_scripts.html";

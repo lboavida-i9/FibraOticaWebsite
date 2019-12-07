@@ -23,7 +23,7 @@ include_once "../PHP/BackOfficeAdminHelper.php";
     include_once "Content/Loader.html";
     ?>
 
-    <div class="container">
+    <div class="container height-control">
         <!-- The Modal -->
         <div class="modal fade" id="InfoAlertDiv">
             <div class="modal-dialog modal-dialog-centered">
@@ -165,7 +165,9 @@ include_once "../PHP/BackOfficeAdminHelper.php";
         </div>
     </div>
 </body>
-
+<?php
+include_once "Content/_Footer.html";
+?>
 <?php
 include_once "Content/_scripts.html";
 ?>
