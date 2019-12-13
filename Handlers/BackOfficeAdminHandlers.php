@@ -1,6 +1,10 @@
 <?php
 include("../PHP/DBConfig.php");
 if (isset($_REQUEST['action'])) {
+    if (isset($_SESSION["idAdmin"])) {
+        echo 'You have to Login First';
+        return ;
+    }
     switch ($_REQUEST['action']) {
         case "AddContent":
             $contentId = InsertContent();
