@@ -11,6 +11,7 @@ if (isset($_REQUEST['action'])) {
 
             foreach ($rs as $r) {                
                 $_SESSION["idGeral"] = $r->id;
+                $_SESSION["Token"] = Encript("TokenAccessGranted");
                 $result  = 'success';
             }
 

@@ -1,10 +1,18 @@
 <?php
+session_start();
 include("../PHP/DBConfig.php");
 if (isset($_REQUEST['action'])) {
-    if (isset($_SESSION["idAdmin"])) {
+    if (!isset($_SESSION["idAdmin"]) && !isset($_SESSION["Token"])) {
         echo 'You have to Login First';
         return ;
     }
+    else {
+        if (Decript($_SESSION["Token"]) != "TokenAccessGranted") {
+            echo 'Youre token is incorrect';
+            return;
+        }
+    }
+
     switch ($_REQUEST['action']) {
         case "AddContent":
             $contentId = InsertContent();
@@ -22,7 +30,6 @@ if (isset($_REQUEST['action'])) {
             header("Location: {$_SERVER['HTTP_REFERER']}");
             break;
         case "CreateAccount":
-            session_start();
             $query = $db->prepare("INSERT INTO userstecnico(email, password, Nome) VALUES ('" . htmlspecialchars($_POST["EmailTecnico"]) . "','" . hash("sha512", htmlspecialchars($_POST["PasswordTecnico"])) . "', '" . htmlspecialchars($_POST["NomeTecnico"]) . "');");
             $query->execute();
             echo 'Conta criada com successo';
