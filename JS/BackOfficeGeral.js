@@ -3,7 +3,7 @@ function GetContent() {
     $.post('../Handlers/BackOfficeGeralHandlers.php?action=GetContent', function (response) {
         JSON.parse(response).forEach(element => {
             $("#Content").append(
-                "<div id='DivParent_" + element.id + "'>" +
+                "<div id='DivParent_" + element.id + "' type='" + element.typeContent + "'>" +
                 "<h1>" + element.nome + "</h1>" +
                 "</div>"
             );
@@ -42,6 +42,21 @@ function GetContent() {
 
 function WichType(ContentName) {
     return ContentName.substr((ContentName.lastIndexOf('.') + 1));
+}
+
+function ChangedSortValue() {
+    var ValueSorted = $('#SortBy').find(":selected").val();
+    if (ValueSorted != "all") {
+        $('#Content').children().each(function () {
+            if ($(this).attr("type") == ValueSorted) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    } else {
+        $('#Content').children().show();
+    }
 }
 
 var TypeExtensionEnum = {

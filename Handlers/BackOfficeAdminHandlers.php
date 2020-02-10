@@ -104,7 +104,7 @@ if (isset($_REQUEST['action'])) {
 
 function InsertContent($db)
 {
-    $query = $db->prepare("INSERT INTO conteudobackoffice (nome, descricao) VALUES ('" . htmlspecialchars($_POST["Titulo"]) . "','" . htmlspecialchars($_POST["Descricao"]) . "');");
+    $query = $db->prepare("INSERT INTO conteudobackoffice (nome, descricao, typeContent) VALUES ('" . htmlspecialchars($_POST["Titulo"]) . "','" . htmlspecialchars($_POST["Descricao"]) . "' , '" . htmlspecialchars($_POST["TypeContent"]) . "');");
     $query->execute();
 
     $query = $db->prepare("SELECT LAST_INSERT_ID() AS id;");

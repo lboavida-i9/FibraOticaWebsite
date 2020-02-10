@@ -74,6 +74,17 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                         </div>
                         <div class="row">
                             <div class="col">
+                                <p>Escolha o tipo de operadora</p>
+                            </div>
+                            <div class="col">
+                                <select id="TypeContent" name="TypeContent" required>
+                                    <option value="0">MEO</option>
+                                    <option value="1">Vodafone</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
 
                                 <input type="file" name="InputFile[]" id="InputFile" class="inputfile" multiple="multiple" required>
                                 <label for="InputFile">Choose a file</label>
