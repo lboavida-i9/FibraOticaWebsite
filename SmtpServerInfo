@@ -1,0 +1,36 @@
+Usuario: luis2.128.b80@gmail.com
+Port: 2525
+Server: smtp.elasticemail.com
+Senha: 85EF2967EDF85BD6A7830E71BFDB50DF1C3C
+
+https://elasticemail.com/account#/create-account?r=20b444a2-b3af-4eb8-bae7-911f6097521c
+
+Este ta em trial depois tem que se pagar 9 euros por mes
+
+//---------------------------------------------------------------------------------------//
+
+email: luis2.128.b80@gmail.com
+login domain: teste123abc123.moosend.com
+password: 9177tiratirametemete
+
+
+//--------------------------------------------------------------------------------------//
+nova versao ta tudo a funcionar com o codigo :
+
+            Email.send({
+                Host : "smtp.gmail.com",
+                Port : "587",
+                EnableSsl : true,
+                Username : "sadasdasdasdasdnn@gmail.com",
+                Password : "Miguel9177",
+                To : 'luis.128.b@gmail.com',
+                From : "luis2.128.b80@gmail.com",
+                Subject : "This is the subject",
+                Body : "And this is the body"
+            }).then(
+                message => alert(message)
+            );
+            
+e com o link: <script src="https://smtpjs.com/v3/smtp.js"></script>   
+
+usar o gmail: sadasdasdasdasdnn@gmail.com, que tem a password Miguel9177, tem que se usar este pq é o unico que tem as seguranças desativadas para o site

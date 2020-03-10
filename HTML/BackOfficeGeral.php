@@ -24,8 +24,9 @@ include_once "../PHP/BackOfficeGeralHelper.php";
     include_once "Content/Loader.html";
     ?>
     <h1>BackOffice Geral</h1>
-
-    <div id="Content">        
+    <div class="container">
+        <div id="Content">        
+        </div>
     </div>
 </body>
 
