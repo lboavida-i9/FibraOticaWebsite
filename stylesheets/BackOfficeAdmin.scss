@@ -115,3 +115,30 @@ input[type="text"],input[type="email"],input[type="password"]{
 }
 
 
+
+
+
+
+
+
+
+
+
+
+.img-slider {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  background-color: rgba(0,0,0,0.5);
+}
+
+
+.top-right-0 {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.background-color-div {
+  background-color: rgba(0,0,0,0.5);
+}

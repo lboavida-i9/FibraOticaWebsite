@@ -298,10 +298,23 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                                 <input class="w-100" type="text" id="EditDescricaoConteudo" placeholder="Descrição...">
                             </div>
 
+                            <div>
+                                <div id="EditImgDiv" class="overflow-auto" style="display: -webkit-box;">
+
+                                </div>
+                            </div>
+
                             <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="EditConteudo();">Editar</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            <div class="modal-footer d-block">
+                                <form action="../Handlers/BackOfficeAdminHandlers.php?action=AddImgs" method="post" enctype="multipart/form-data">
+                                    <input type="file" name="InputFile[]" id="InputFile" multiple="multiple" required>
+                                    <input type="hidden" name="Id" id="idHidden">
+                                    <input type="submit" value="Confirmar" name="submit">
+                                </form>
+                                <div class="d-flex mt-3">
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="EditConteudo();">Editar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
                             </div>
 
                         </div>

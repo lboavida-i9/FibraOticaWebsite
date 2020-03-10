@@ -78,6 +78,30 @@ if (isset($_REQUEST['action'])) {
             $query->execute();
             echo "Conteudo editado com successo";
             break;
+        case "GetConteudoFiles":
+            echo json_encode(GetConteudoFiles($_POST["id"], $db));
+            break;
+        case "DeleteImgFromEvent":
+            if (file_exists("../Files/FilesSended/" . $_REQUEST["file"])) {
+                unlink("../Files/FilesSended/" . $_REQUEST["file"]);
+            }
+
+            $query = $db->prepare("Delete from ficheirosconteudobackoffice where nomedoficheiro = '" . $_REQUEST["file"] . "'");
+            $query->execute();
+            break;
+        case "AddImgs":
+            for ($i = 0; $i < count($_FILES['InputFile']['name']); $i++) {
+                $info = pathinfo($_FILES['InputFile']['name'][$i]);
+                $ext = $info['extension']; // get the extension of the file
+                $newname = GetNumberName($db) . "." . $ext;
+
+                $target = '../Files/FilesSended/' . $newname;
+                move_uploaded_file($_FILES['InputFile']['tmp_name'][$i], $target);
+
+                InsertFileContent($_REQUEST["Id"], $newname, $db);
+            }
+            header("Location: {$_SERVER['HTTP_REFERER']}");
+            break;
         case "ReadExcell":
             $Result = $_POST["result"];
 

@@ -131,10 +131,51 @@ function GetCurrentTecnico(id, Nome, Email) {
 
 var CurrentEditingConteudo = -1;
 function GetCurrentConteudo(id, Nome, Descricao) {
+    $("#EditImgDiv").empty();
+
     CurrentEditingConteudo = id;
+    $("#idHidden").val(CurrentEditingConteudo);    
     $("#TituloConteudo").html("Edite o Conteudo:");
     $("#EditTituloConteudo").val(Nome);
     $("#EditDescricaoConteudo").val(Descricao);
+
+    $.post('../Handlers/BackOfficeAdminHandlers.php?action=GetConteudoFiles', { 'id': CurrentEditingConteudo }, function (response) {
+        JSON.parse(response).forEach(e => {
+
+            switch (WichType(e.nomedoficheiro)) {
+                case TypeExtensionEnum.jpg:
+                    $("#EditImgDiv").prepend("<div class='position-relative background-color-div'> <img src='../Files/FilesSended/" + e.nomedoficheiro + "' class='img-slider'> <button class='top-right-0' onclick='DeleteImg(" + CurrentEditingConteudo + ", \"" +  e.nomedoficheiro + "\")'> X </button> </div>");
+                    break;
+                case TypeExtensionEnum.png:
+                    $("#EditImgDiv").prepend("<div class='position-relative background-color-div'> <img src='../Files/FilesSended/" + e.nomedoficheiro + "' class='img-slider'> <button class='top-right-0' onclick='DeleteImg(" + CurrentEditingConteudo + ", \"" +  e.nomedoficheiro + "\")'> X </button> </div>");
+                    break;
+                case TypeExtensionEnum.gif:
+                    $("#EditImgDiv").prepend("<div class='position-relative background-color-div'> <img src='../Files/FilesSended/" + e.nomedoficheiro + "' class='img-slider'> <button class='top-right-0' onclick='DeleteImg(" + CurrentEditingConteudo + ", \"" +  e.nomedoficheiro + "\")'> X </button> </div>");
+                    break;
+                case TypeExtensionEnum.pdf:
+                    $("#EditImgDiv").append("<a href='../Files/FilesSended/" + e.nomedoficheiro + "'>Link para o pdf</a>");
+                    break;
+                case TypeExtensionEnum.mp4:
+                    $("#EditImgDiv").prepend("<div class='position-relative background-color-div'> <video class='img-slider' controls><source src='../Files/FilesSended/" + e.nomedoficheiro + "' type='video/mp4'></video> <button class='top-right-0' onclick='DeleteImg(" + CurrentEditingConteudo + ", \"" +  e.nomedoficheiro + "\")'> X </button> </div>");                    
+                    break;
+                case TypeExtensionEnum.xlsx:
+                    $("#EditImgDiv").append("<a href='../Files/FilesSended/" + e.nomedoficheiro + "'>Link para o Excell</a>");
+                    break;
+                default:
+                    $("#EditImgDiv").append("<a href='../Files/FilesSended/" + e.nomedoficheiro + "'>Link para o Ficheiro</a>");
+            }            
+        });
+    });
+}
+
+function WichType(ContentName) {
+    return ContentName.substr((ContentName.lastIndexOf('.') + 1));
+}
+
+function DeleteImg(id, fileName) {
+    $.post('../Handlers/BackOfficeAdminHandlers.php?action=DeleteImgFromEvent&id=' + id + '&file=' + fileName, function (response) {
+      location.reload();
+    });
 }
 
 function EditTecnico() {
@@ -235,3 +276,12 @@ function handleFile(e) {
         reader.readAsArrayBuffer(f);
     }
 }
+
+var TypeExtensionEnum = {
+    jpg: "jpg",
+    png: "png",
+    gif: "gif",
+    pdf: "pdf",
+    mp4: "mp4",
+    xlsx: "xlsx"
+};
