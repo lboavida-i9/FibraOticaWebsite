@@ -17,7 +17,7 @@
 include_once "../PHP/BackOfficeAdminHelper.php";
 ?>
 
-<body onload="LoadTecnicoTable(); GetTecnicos(); OnLoad(); CreateAccount(); ChangeGeralPassword();">
+<body onload="LoadTecnicoTable(); GetTecnicos(); GetConteudo(); OnLoad(); CreateAccount(); ChangeGeralPassword();">
     <?php
     include_once "Content/Navbar.html";
     include_once "Content/Loader.html";
@@ -70,6 +70,17 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                                 <p>Descricao</p>
                             </div>
                             <div class="col"><input type="text" name="Descricao" id="Descricao" placeholder="Descricao" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p>Escolha o tipo de operadora</p>
+                            </div>
+                            <div class="col">
+                                <select id="TypeContent" name="TypeContent" required>
+                                    <option value="0">MEO</option>
+                                    <option value="1">Vodafone</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -229,6 +240,67 @@ include_once "../PHP/BackOfficeAdminHelper.php";
                             <!-- Modal footer -->
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="EditTecnico();">Editar</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-12 mb-4">
+                <h3> Editar Apagar Conteúdo </h3>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="panel panel-primary filterable">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Conteúdo</h3>
+                                <div class="pull-right">
+                                    <button class="btn btn-light btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                                </div>
+                            </div>
+                            <table class="table">
+                                <thead>
+                                    <tr class="filters">
+                                        <th><input type="text" class="form-control" placeholder="Titulo" disabled></th>
+                                        <th><input type="text" class="form-control" placeholder="Descrição" disabled></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyConteudos">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- The Modal -->
+                <div class="modal fade" id="EditConteudo">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 id="TituloConteudo" class="modal-title"></h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <label class="m-0">Titulo</label>
+                                <input class="w-100 mb-4" type="text" id="EditTituloConteudo" placeholder="Titulo...">
+                                <br>
+                                <label class="m-0">Descrição</label>
+                                <input class="w-100" type="text" id="EditDescricaoConteudo" placeholder="Descrição...">
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="EditConteudo();">Editar</button>
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                             </div>
 

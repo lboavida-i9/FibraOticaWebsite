@@ -4,9 +4,8 @@ include("../PHP/DBConfig.php");
 if (isset($_REQUEST['action'])) {
     if (!isset($_SESSION["idAdmin"]) && !isset($_SESSION["Token"])) {
         echo 'You have to Login First';
-        return ;
-    }
-    else {
+        return;
+    } else {
         if (Decript($_SESSION["Token"]) != "TokenAccessGranted") {
             echo 'Youre token is incorrect';
             return;
@@ -15,17 +14,17 @@ if (isset($_REQUEST['action'])) {
 
     switch ($_REQUEST['action']) {
         case "AddContent":
-            $contentId = InsertContent();
+            $contentId = InsertContent($db);
 
             for ($i = 0; $i < count($_FILES['InputFile']['name']); $i++) {
                 $info = pathinfo($_FILES['InputFile']['name'][$i]);
                 $ext = $info['extension']; // get the extension of the file
-                $newname = GetNumberName() . "." . $ext;
+                $newname = GetNumberName($db) . "." . $ext;
 
                 $target = '../Files/FilesSended/' . $newname;
                 move_uploaded_file($_FILES['InputFile']['tmp_name'][$i], $target);
 
-                InsertFileContent($contentId, $newname);
+                InsertFileContent($contentId, $newname, $db);
             }
             header("Location: {$_SERVER['HTTP_REFERER']}");
             break;
@@ -45,15 +44,39 @@ if (isset($_REQUEST['action'])) {
             $rs = $query->fetchAll(PDO::FETCH_OBJ);
             echo json_encode($rs);
             break;
+        case "GetConteudo":
+            $query = $db->prepare("SELECT * FROM conteudobackoffice");
+            $query->execute();
+            $rs = $query->fetchAll(PDO::FETCH_OBJ);
+            echo json_encode($rs);
+            break;
         case "DeleteTecnico":
             $query = $db->prepare("DELETE FROM userstecnico WHERE id = " . $_POST["IdTecnico"]);
             $query->execute();
             echo "Técnico apagado com successo";
             break;
+
+        case "DeleteConteudo":
+            // Foreach para apagar os ficheiros.
+            foreach (GetConteudoFiles($_POST["IdConteudo"], $db) as $file) {
+                if (file_exists("../Files/FilesSended/" . $file->nomedoficheiro)) {
+                    unlink("../Files/FilesSended/" . $file->nomedoficheiro);
+                }
+            }
+            $query = $db->prepare("DELETE FROM conteudobackoffice WHERE id= " . $_POST["IdConteudo"] . "; Delete from ficheirosconteudobackoffice where idconteudo = " . $_POST["IdConteudo"]);
+            $query->execute();
+            echo "Conteúdo apagado com successo";
+            break;
+
         case "EditTecnico":
             $query = $db->prepare("UPDATE userstecnico SET email= '" . $_POST["EmailTecnico"] . "', Nome='" . $_POST["NomeTecnico"] . "' WHERE id='" . $_POST["IdTecnico"] . "'");
             $query->execute();
             echo "Técnico editado com successo";
+            break;
+        case "EditConteudo":
+            $query = $db->prepare("UPDATE conteudobackoffice SET nome= '" . $_POST["TituloConteudo"] . "', descricao='" . $_POST["DescricaoConteudo"] . "' WHERE id='" . $_POST["IdConteudo"] . "'");
+            $query->execute();
+            echo "Conteudo editado com successo";
             break;
         case "ReadExcell":
             $Result = $_POST["result"];
@@ -73,15 +96,15 @@ if (isset($_REQUEST['action'])) {
             $QueryString = $QueryString . ";";
             $query = $db->prepare($QueryString);
             $query->execute();
-            
+
             echo 'Conteúdo do excell adicionado com successo';
             break;
     }
 }
 
-function InsertContent() {
-    include("../PHP/DBConfig.php");
-    $query = $db->prepare("INSERT INTO conteudobackoffice (nome, descricao) VALUES ('" . htmlspecialchars($_POST["Titulo"]) . "','" . htmlspecialchars($_POST["Descricao"]) . "');");
+function InsertContent($db)
+{
+    $query = $db->prepare("INSERT INTO conteudobackoffice (nome, descricao, typeContent) VALUES ('" . htmlspecialchars($_POST["Titulo"]) . "','" . htmlspecialchars($_POST["Descricao"]) . "' , '" . htmlspecialchars($_POST["TypeContent"]) . "');");
     $query->execute();
 
     $query = $db->prepare("SELECT LAST_INSERT_ID() AS id;");
@@ -92,19 +115,26 @@ function InsertContent() {
     }
 }
 
-function InsertFileContent($contentId, $fileName) {
-    include("../PHP/DBConfig.php");
+function InsertFileContent($contentId, $fileName, $db)
+{
     $query = $db->prepare("INSERT INTO ficheirosconteudobackoffice(idconteudo, nomedoficheiro) VALUES ('" . $contentId . "','" . $fileName . "')");
     $query->execute();
 }
 
-function GetNumberName() {
-    include("../PHP/DBConfig.php");
-
+function GetNumberName($db)
+{
     $query = $db->prepare("SELECT * FROM ficheirosconteudobackoffice ORDER BY id DESC LIMIT 0, 1");
     $query->execute();
     $rs = $query->fetchAll(PDO::FETCH_OBJ);
     foreach ($rs as $r) {
         return $r->id + 1;
     }
+}
+
+function GetConteudoFiles($id, $db)
+{
+    $query = $db->prepare("SELECT nomedoficheiro FROM ficheirosconteudobackoffice WHERE idconteudo = " . $id);
+    $query->execute();
+    $rs = $query->fetchAll(PDO::FETCH_OBJ);
+    return $rs;
 }

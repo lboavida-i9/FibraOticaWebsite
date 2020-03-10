@@ -60,6 +60,22 @@ function GetTecnicos() {
     });
 }
 
+function GetConteudo() {
+    $("#Loader").show();
+    $.post('../Handlers/BackOfficeAdminHandlers.php?action=GetConteudo', function (response) {
+        JSON.parse(response).forEach(element => {
+            $("#tbodyConteudos").append(
+                "<tr>" +
+                "<td id='TituloConteudo_" + element.id + "'> " + element.nome + " </td>" +
+                "<td id='DescricaoConteudo_" + element.id + "'> " + element.descricao + " </td>" +
+                "<td id='ButtonsConteudo_" + element.id + "'> <button data-toggle='modal' data-target='#EditConteudo' onclick='GetCurrentConteudo(" + element.id + ", \"" + element.nome + "\", \"" + element.descricao + "\");'>Edit</button> <button onclick='DeleteConteudo(" + element.id + ");'>Del</button> </td>" +
+                "</tr>"
+            );
+            $("#Loader").hide();
+        });
+    });
+}
+
 function LoadTecnicoTable() {
     $(document).ready(function () {
         $('.filterable .btn-filter').click(function () {
@@ -113,6 +129,14 @@ function GetCurrentTecnico(id, Nome, Email) {
     $("#EditEmailTecnico").val(Email);
 }
 
+var CurrentEditingConteudo = -1;
+function GetCurrentConteudo(id, Nome, Descricao) {
+    CurrentEditingConteudo = id;
+    $("#TituloConteudo").html("Edite o Conteudo:");
+    $("#EditTituloConteudo").val(Nome);
+    $("#EditDescricaoConteudo").val(Descricao);
+}
+
 function EditTecnico() {
     $("#Loader").show();
     $.post('../Handlers/BackOfficeAdminHandlers.php?action=EditTecnico', { 'IdTecnico': CurrentEditingTecnico, 'NomeTecnico': $("#EditNomeTecnico").val(), 'EmailTecnico': $("#EditEmailTecnico").val() }, function (response) {
@@ -127,6 +151,20 @@ function EditTecnico() {
     });
 }
 
+function EditConteudo() {
+    $("#Loader").show();
+    $.post('../Handlers/BackOfficeAdminHandlers.php?action=EditConteudo', { 'IdConteudo': CurrentEditingConteudo, 'TituloConteudo': $("#EditTituloConteudo").val(), 'DescricaoConteudo': $("#EditDescricaoConteudo").val() }, function (response) {
+
+        $("#InfoAlert").html(response);
+        $("#InfoAlertDiv").modal('show');
+
+        $("#Loader").hide();
+
+        $("#tbodyConteudos").empty();
+        GetConteudo();
+    });
+}
+
 function DeleteTecnico(id) {
     $("#Loader").show();
     $.post('../Handlers/BackOfficeAdminHandlers.php?action=DeleteTecnico', { 'IdTecnico': id }, function (response) {
@@ -138,6 +176,20 @@ function DeleteTecnico(id) {
 
         $("#tbodyTecnicos").empty();
         GetTecnicos();
+    });
+}
+
+function DeleteConteudo(id) {
+    $("#Loader").show();
+    $.post('../Handlers/BackOfficeAdminHandlers.php?action=DeleteConteudo', { 'IdConteudo': id }, function (response) {
+
+        $("#InfoAlert").html(response);
+        $("#InfoAlertDiv").modal('show');
+
+        $("#Loader").hide();
+
+        $("#tbodyConteudos").empty();
+        GetConteudo();
     });
 }
 

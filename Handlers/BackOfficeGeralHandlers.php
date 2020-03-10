@@ -15,7 +15,7 @@ if (isset($_REQUEST['action'])) {
     
     switch ($_REQUEST['action']) {
         case "GetContent":
-            $query = $db->prepare("SELECT conteudobackoffice.id, conteudobackoffice.nome, conteudobackoffice.descricao, ficheirosconteudobackoffice.nomedoficheiro
+            $query = $db->prepare("SELECT conteudobackoffice.id, conteudobackoffice.nome, conteudobackoffice.descricao, conteudobackoffice.typeContent, ficheirosconteudobackoffice.nomedoficheiro
                                    FROM conteudobackoffice, ficheirosconteudobackoffice 
                                    WHERE conteudobackoffice.id = idconteudo
                                    ORDER BY id DESC");
@@ -29,7 +29,7 @@ if (isset($_REQUEST['action'])) {
 
                 if ($idGetted != $r->id) {
                     $idGetted = $r->id;
-                    array_push($ArrayContent, array('id' => $r->id, 'nome' => $r->nome, 'descricao' => $r->descricao, 'Conteudo' => GetFilesContent($rs, $r->id)));
+                    array_push($ArrayContent, array('id' => $r->id, 'nome' => $r->nome, 'typeContent' => $r->typeContent, 'descricao' => $r->descricao, 'Conteudo' => GetFilesContent($rs, $r->id)));
                 }
             }
             echo json_encode($ArrayContent);
